@@ -24,13 +24,13 @@ Features
 Features
 --------
 
-- Add Support for Python 3.12 (`#1315 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1315>`_)
+- Add Support for Python 3.12 (`#1315 <https://github.com/dbfixtures/pytest-dynamodb/issues/1315>`_)
 
 
 Miscellaneus
 ------------
 
-- `#1291 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1291>`_, `#1314 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1314>`_
+- `#1291 <https://github.com/dbfixtures/pytest-dynamodb/issues/1291>`_, `#1314 <https://github.com/dbfixtures/pytest-dynamodb/issues/1314>`_
 
 
 2.2.3 (2023-06-12)
@@ -39,15 +39,15 @@ Miscellaneus
 Features
 --------
 
-- Changed default fake credentials for Dynamodb. (`#1154 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1154>`_)
-- Do not fail test pipeline if codecov step fails. (`#1185 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1185>`_)
+- Changed default fake credentials for Dynamodb. (`#1154 <https://github.com/dbfixtures/pytest-dynamodb/issues/1154>`_)
+- Do not fail test pipeline if codecov step fails. (`#1185 <https://github.com/dbfixtures/pytest-dynamodb/issues/1185>`_)
 
 
 Miscellaneus
 ------------
 
-- Adjusted workflows for actions-reuse 2 (`#1174 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1174>`_)
-- Replace pycodestyle and pydocstyle linters with ruff. (`#1178 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1178>`_)
+- Adjusted workflows for actions-reuse 2 (`#1174 <https://github.com/dbfixtures/pytest-dynamodb/issues/1174>`_)
+- Replace pycodestyle and pydocstyle linters with ruff. (`#1178 <https://github.com/dbfixtures/pytest-dynamodb/issues/1178>`_)
 
 
 2.2.2 (2023-03-27)
@@ -56,7 +56,7 @@ Miscellaneus
 Bugfixes
 --------
 
-- Fix license configuration in pyproject.toml (`#1150 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1150>`_)
+- Fix license configuration in pyproject.toml (`#1150 <https://github.com/dbfixtures/pytest-dynamodb/issues/1150>`_)
 
 
 2.2.1 (2023-03-03)
@@ -65,7 +65,7 @@ Bugfixes
 Bugfixes
 --------
 
-- Fix entrypoint configuration (`#1138 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1138>`_)
+- Fix entrypoint configuration (`#1138 <https://github.com/dbfixtures/pytest-dynamodb/issues/1138>`_)
 
 
 2.2.0 (2023-02-27)
@@ -74,27 +74,27 @@ Bugfixes
 Breaking changes
 ----------------
 
-- Dropped support for Python 3.7 due to using TypeDict for configuration. (`#1127 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1127>`_)
+- Dropped support for Python 3.7 due to using TypeDict for configuration. (`#1127 <https://github.com/dbfixtures/pytest-dynamodb/issues/1127>`_)
 
 
 Features
 --------
 
-- Support python 3.10 (`#939 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/939>`_)
-- Add support for Python 3.11 (`#1116 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1116>`_)
+- Support python 3.10 (`#939 <https://github.com/dbfixtures/pytest-dynamodb/issues/939>`_)
+- Add support for Python 3.11 (`#1116 <https://github.com/dbfixtures/pytest-dynamodb/issues/1116>`_)
 - Added typing and check code with mypy.
-  Also configuration is being TypeChecked with TypeDict. (`#1127 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1127>`_)
+  Also configuration is being TypeChecked with TypeDict. (`#1127 <https://github.com/dbfixtures/pytest-dynamodb/issues/1127>`_)
 
 
 Miscellaneus
 ------------
 
-- Fix broken link to dynamodb documentation - introduce delays (`#846 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/846>`_)
-- Add towncrier to manage newsfragments and generate changelog (`#1114 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1114>`_)
-- Migrate development dependency management to pipenv (`#1115 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1115>`_)
-- Add your info here (`#1117 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1117>`_)
-- Add automerge action to use Application authentication. (`#1118 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1118>`_)
-- Use tbump to manage package versioning (`#1119 <https://github.com/ClearcodeHQ/pytest-dynamodb/issues/1119>`_)
+- Fix broken link to dynamodb documentation - introduce delays (`#846 <https://github.com/dbfixtures/pytest-dynamodb/issues/846>`_)
+- Add towncrier to manage newsfragments and generate changelog (`#1114 <https://github.com/dbfixtures/pytest-dynamodb/issues/1114>`_)
+- Migrate development dependency management to pipenv (`#1115 <https://github.com/dbfixtures/pytest-dynamodb/issues/1115>`_)
+- Add your info here (`#1117 <https://github.com/dbfixtures/pytest-dynamodb/issues/1117>`_)
+- Add automerge action to use Application authentication. (`#1118 <https://github.com/dbfixtures/pytest-dynamodb/issues/1118>`_)
+- Use tbump to manage package versioning (`#1119 <https://github.com/dbfixtures/pytest-dynamodb/issues/1119>`_)
 
 
 2.1.0
