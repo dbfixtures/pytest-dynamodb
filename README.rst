@@ -1,4 +1,4 @@
-.. image:: https://raw.githubusercontent.com/ClearcodeHQ/pytest-dynamodb/master/logo.png
+.. image:: https://raw.githubusercontent.com/dbfixtures/pytest-dynamodb/master/logo.png
     :width: 100px
     :height: 100px
     
@@ -24,12 +24,12 @@ pytest-dynamodb
 Package status
 --------------
 
-.. image:: https://travis-ci.org/ClearcodeHQ/pytest-dynamodb.svg?branch=v2.4.0
-    :target: https://travis-ci.org/ClearcodeHQ/pytest-dynamodb
+.. image:: https://travis-ci.org/dbfixtures/pytest-dynamodb.svg?branch=v2.4.0
+    :target: https://travis-ci.org/dbfixtures/pytest-dynamodb
     :alt: Tests
 
-.. image:: https://coveralls.io/repos/ClearcodeHQ/pytest-dynamodb/badge.png?branch=v2.4.0
-    :target: https://coveralls.io/r/ClearcodeHQ/pytest-dynamodb?branch=v2.4.0
+.. image:: https://coveralls.io/repos/dbfixtures/pytest-dynamodb/badge.png?branch=v2.4.0
+    :target: https://coveralls.io/r/dbfixtures/pytest-dynamodb?branch=v2.4.0
     :alt: Coverage Status
 
 What is this?
@@ -152,4 +152,4 @@ Example usage:
 Package resources
 -----------------
 
-* Bug tracker: https://github.com/ClearcodeHQ/pytest-dynamodb/issues
+* Bug tracker: https://github.com/dbfixtures/pytest-dynamodb/issues
