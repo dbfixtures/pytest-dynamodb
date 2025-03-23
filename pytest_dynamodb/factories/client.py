@@ -66,9 +66,10 @@ def dynamodb(
             aws_secret_access_key=secret_key or config["aws_secret_key"],
             region_name=region or config["aws_region"],
         )
-
+        pre_existing_tables = dynamo_db.meta.client.list_tables()
         yield dynamo_db
         for table in dynamo_db.tables.all():  # pylint:disable=no-member
-            table.delete()
+            if table.table_name not in pre_existing_tables:
+                table.delete()
 
     return dynamodb_factory
