@@ -18,6 +18,7 @@
 """Plugin module of pytest-dynamodb."""
 from pytest import Parser
 
+import pytest_dynamodb.factories.process
 from pytest_dynamodb import factories
 
 # pylint:disable=invalid-name
@@ -110,5 +111,5 @@ def pytest_addoption(parser: Parser) -> None:
     )
 
 
-dynamodb_proc = factories.dynamodb_proc()
+dynamodb_proc = pytest_dynamodb.factories.process.dynamodb_proc()
 dynamodb = factories.dynamodb("dynamodb_proc")
