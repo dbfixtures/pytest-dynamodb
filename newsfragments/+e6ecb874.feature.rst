@@ -1,2 +1,0 @@
-To avoid issues where the tests would delete development tables kept in docker instance,
-only tables that were created in tests will be removed.

@@ -3,6 +3,29 @@ CHANGELOG
 
 .. towncrier release notes start
 
+2.5.0 (2025-03-23)
+==================
+
+Features
+--------
+
+- Client fixtures now have the ability to connect to existing DynamoDB instance maintained externally (like docker) (`#813 <https://github.com/dbfixtures/pytest-dynamodb/issues/813>`_)
+- To avoid issues where the tests would delete development tables kept in docker instance,
+  only tables that were created in tests will be removed.
+
+
+Miscellaneus
+------------
+
+- Adjust links after repository transfer
+- Adjust workflows for actions-reuse 3
+- Download dynamodb from cloudfront instead of old s3 link
+- Refactor code a bit to keep client and process fixtures separately, and extract config into separate subpackage.
+
+  This will make it easier implementing noproc approach.
+- Use pre-commit for maintaining code style and linting
+
+
 2.4.0 (2024-10-25)
 ==================
 

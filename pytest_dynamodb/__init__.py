@@ -17,4 +17,4 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with pytest-dynamodb. If not, see <http://www.gnu.org/licenses/>.
 """Main module for pytest-dynamodb."""
-__version__ = "2.4.0"
+__version__ = "2.5.0"
