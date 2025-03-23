@@ -1,0 +1,1 @@
+Download dynamodb from cloudfront instead of old s3 link

@@ -27,7 +27,7 @@ jobs:
     - name: Install DynamoDB
       run: |
         mkdir /tmp/dynamodb
-        wget -O - https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz | tar xz --directory /tmp/dynamodb
+        wget -O - https://d1ni2b6xgvw0s0.cloudfront.net/v2.x/dynamodb_local_latest.tar.gz | tar xz --directory /tmp/dynamodb
     - uses: fizyk/actions-reuse/.github/actions/pipenv@v3.0.2
       with:
         python-version: ${{ matrix.python-version }}
