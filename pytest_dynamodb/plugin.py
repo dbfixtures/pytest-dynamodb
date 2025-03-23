@@ -112,4 +112,5 @@ def pytest_addoption(parser: Parser) -> None:
 
 
 dynamodb_proc = pytest_dynamodb.factories.process.dynamodb_proc()
+dynamodb_noproc = pytest_dynamodb.factories.noprocess.dynamodb_noproc()
 dynamodb = factories.dynamodb("dynamodb_proc")

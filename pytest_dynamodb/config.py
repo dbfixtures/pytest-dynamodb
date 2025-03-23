@@ -17,7 +17,7 @@
 """Configuration tools for pytest-dynamodb."""
 
 from pathlib import Path
-from typing import Any, TypedDict
+from typing import Any, Optional, TypedDict
 
 from _pytest.fixtures import FixtureRequest
 
@@ -27,8 +27,8 @@ class PytestDynamoDBConfigType(TypedDict):
 
     dir: Path
     host: str
-    port: str
-    delay: str
+    port: Optional[int]
+    delay: bool
     aws_access_key: str
     aws_secret_key: str
     aws_region: str
@@ -43,11 +43,15 @@ def get_config(request: FixtureRequest) -> PytestDynamoDBConfigType:
             option_name
         )
 
+    port = None
+    if get_conf_option("port"):
+        port = int(get_conf_option("port"))
+
     config: PytestDynamoDBConfigType = {
         "dir": get_conf_option("dir"),
         "host": get_conf_option("host"),
-        "port": get_conf_option("port"),
-        "delay": get_conf_option("delay"),
+        "port": port,
+        "delay": bool(get_conf_option("delay")),
         "aws_access_key": get_conf_option("aws_access_key"),
         "aws_secret_key": get_conf_option("aws_secret_key"),
         "aws_region": get_conf_option("aws_region"),
