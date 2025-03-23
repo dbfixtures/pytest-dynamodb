@@ -50,6 +50,7 @@ Plugin contains two fixtures
 
 * **dynamodb** - it's a client/resource fixture that has functional scope. After each test it drops tables in DynamoDB.
 * **dynamodb_proc** - session scoped fixture, that starts DynamoDB instance at it's first use and stops at the end of the tests.
+* **dynamodb_noproc** - session scoped fixture, that's used to connect to dynamodb mained externally (like docker).
 
 Simply include one of these fixtures into your tests fixture list.
 
@@ -63,6 +64,19 @@ You can also create additional dynamodb client and process fixtures if you'd nee
     dynamodb_my_proc = factories.dynamodb_proc(
         port=None, logsdir='/tmp', delay=True)
     dynamodb_my = factories.dynamodb('dynamodb_my_proc')
+
+.. note::
+
+    Each DynamoDB process fixture can be configured in a different way than the others through the fixture factory arguments.
+
+
+.. code-block:: python
+
+    from pytest_dynamodb import factories
+
+    dynamodb_my_noproc = factories.dynamodb_noproc(
+        host="dynamodb", port=8088)
+    dynamodb_my = factories.dynamodb('dynamodb_my_noproc')
 
 .. note::
 

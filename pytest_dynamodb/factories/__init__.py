@@ -17,6 +17,7 @@
 """Fixture factories."""
 
 from pytest_dynamodb.factories.client import dynamodb
+from pytest_dynamodb.factories.noprocess import dynamodb_noproc
 from pytest_dynamodb.factories.process import dynamodb_proc
 
-__all__ = ("dynamodb_proc", "dynamodb")
+__all__ = ("dynamodb_proc", "dynamodb", "dynamodb_noproc")

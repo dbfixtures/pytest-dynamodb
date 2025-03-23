@@ -15,14 +15,16 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with pytest-dynamodb. If not, see <http://www.gnu.org/licenses/>.
 """Client fixture factory."""
-from typing import Any, Callable, Generator, Optional
+from typing import Any, Callable, Generator, Optional, Union
 
 import boto3
 import pytest
+from mirakuru import TCPExecutor
 from mypy_boto3_dynamodb import DynamoDBServiceResource
 from pytest import FixtureRequest
 
 from pytest_dynamodb.config import get_config
+from pytest_dynamodb.factories.noprocess import NoProcExecutor
 
 
 def dynamodb(
@@ -52,7 +54,9 @@ def dynamodb(
             https://boto3.readthedocs.io/en/latest/reference/services/dynamodb.html#DynamoDB.Client
         :returns: connection to DynamoDB database
         """
-        proc_fixture = request.getfixturevalue(process_fixture_name)
+        proc_fixture: Union[TCPExecutor, NoProcExecutor] = (
+            request.getfixturevalue(process_fixture_name)
+        )
         config = get_config(request)
 
         dynamo_db = boto3.resource(
@@ -68,6 +72,3 @@ def dynamodb(
             table.delete()
 
     return dynamodb_factory
-
-
-__all__ = ("dynamodb",)

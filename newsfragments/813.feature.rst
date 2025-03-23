@@ -1,0 +1,1 @@
+Client fixtures now have the ability to connect to existing DynamoDB instance maintained externally (like docker)
