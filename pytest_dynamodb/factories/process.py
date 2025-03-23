@@ -1,5 +1,4 @@
-# Copyright (C) 2016 by Clearcode <http://clearcode.cc>
-# and associates (see AUTHORS).
+# Copyright (C) 2025 by Authors.
 
 # This file is part of pytest-dynamodb.
 
@@ -15,29 +14,17 @@
 
 # You should have received a copy of the GNU Lesser General Public License
 # along with pytest-dynamodb. If not, see <http://www.gnu.org/licenses/>.
-"""Module containing factories for pytest-dynamodb."""
+"""Process fixture factory."""
+
 import os
-from pathlib import Path
-from typing import Any, Callable, Generator, Optional, TypedDict
+from typing import Any, Callable, Generator, Optional
 
-import boto3
 import pytest
+from _pytest.fixtures import FixtureRequest
 from mirakuru import ProcessExitedWithError, TCPExecutor
-from mypy_boto3_dynamodb import DynamoDBServiceResource
-from port_for import get_port
-from pytest import FixtureRequest
+from port_for import PortType, get_port
 
-
-class PytestDynamoDBConfigType(TypedDict):
-    """Configuration type dict."""
-
-    dir: Path
-    host: str
-    port: str
-    delay: str
-    aws_access_key: str
-    aws_secret_key: str
-    aws_region: str
+from pytest_dynamodb.config import get_config
 
 
 class JarPathException(Exception):
@@ -48,31 +35,10 @@ class JarPathException(Exception):
     """
 
 
-def get_config(request: FixtureRequest) -> PytestDynamoDBConfigType:
-    """Return a dictionary with config options."""
-
-    def get_conf_option(option: str) -> Any:
-        option_name = "dynamodb_" + option
-        return request.config.getoption(option_name) or request.config.getini(
-            option_name
-        )
-
-    config: PytestDynamoDBConfigType = {
-        "dir": get_conf_option("dir"),
-        "host": get_conf_option("host"),
-        "port": get_conf_option("port"),
-        "delay": get_conf_option("delay"),
-        "aws_access_key": get_conf_option("aws_access_key"),
-        "aws_secret_key": get_conf_option("aws_secret_key"),
-        "aws_region": get_conf_option("aws_region"),
-    }
-    return config
-
-
 def dynamodb_proc(
     dynamodb_dir: Optional[str] = None,
     host: str = "localhost",
-    port: Optional[int] = None,
+    port: Optional[PortType] = None,
     delay: bool = False,
 ) -> Callable[[FixtureRequest], Any]:
     """Process fixture factory for DynamoDB.
@@ -136,51 +102,3 @@ def dynamodb_proc(
             pass
 
     return dynamodb_proc_fixture
-
-
-def dynamodb(
-    process_fixture_name: str,
-    access_key: Optional[str] = None,
-    secret_key: Optional[str] = None,
-    region: Optional[str] = None,
-) -> Callable[[FixtureRequest], Any]:
-    """Fixture factory for DynamoDB resource.
-
-    :param str process_fixture_name: name of the process fixture
-    :param str access_key: AWS acccess key
-    :param str secret_key: AWS secret key
-    :param str region: AWS region name
-    :rtype: func
-    :returns: function which makes a connection to DynamoDB
-    """
-
-    @pytest.fixture
-    def dynamodb_factory(
-        request: FixtureRequest,
-    ) -> Generator[DynamoDBServiceResource, None, None]:
-        """Fixture for DynamoDB resource.
-
-        :param FixtureRequest request: fixture request object
-        :rtype: Subclass of :py:class:`~boto3.resources.base.ServiceResource`
-            https://boto3.readthedocs.io/en/latest/reference/services/dynamodb.html#DynamoDB.Client
-        :returns: connection to DynamoDB database
-        """
-        proc_fixture = request.getfixturevalue(process_fixture_name)
-        config = get_config(request)
-
-        dynamo_db = boto3.resource(
-            "dynamodb",
-            endpoint_url=f"http://{proc_fixture.host}:{proc_fixture.port}",
-            aws_access_key_id=access_key or config["aws_access_key"],
-            aws_secret_access_key=secret_key or config["aws_secret_key"],
-            region_name=region or config["aws_region"],
-        )
-
-        yield dynamo_db
-        for table in dynamo_db.tables.all():  # pylint:disable=no-member
-            table.delete()
-
-    return dynamodb_factory
-
-
-__all__ = ("dynamodb_proc", "dynamodb")

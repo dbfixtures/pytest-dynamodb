@@ -14,4 +14,9 @@
 
 # You should have received a copy of the GNU Lesser General Public License
 # along with pytest-dynamodb. If not, see <http://www.gnu.org/licenses/>.
-"""Main test module."""
+"""Fixture factories."""
+
+from pytest_dynamodb.factories.client import dynamodb
+from pytest_dynamodb.factories.process import dynamodb_proc
+
+__all__ = ("dynamodb_proc", "dynamodb")
