@@ -50,10 +50,11 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 zip-safe = true
-packages = ["pytest_dynamodb"]
 
-[tool.setuptools.package-data]
-pytest_dynamodb = ["py.typed"]
+[tool.setuptools.packages.find]
+include = ["pytest_dynamodb*"]
+exclude = ["tests*"]
+namespaces = false
 
 [tool.pytest.ini_options]
 xfail_strict=true
