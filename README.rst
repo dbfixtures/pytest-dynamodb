@@ -24,12 +24,12 @@ pytest-dynamodb
 Package status
 --------------
 
-.. image:: https://travis-ci.org/dbfixtures/pytest-dynamodb.svg?branch=v2.5.0
+.. image:: https://travis-ci.org/dbfixtures/pytest-dynamodb.svg?branch=v2.5.1
     :target: https://travis-ci.org/dbfixtures/pytest-dynamodb
     :alt: Tests
 
-.. image:: https://coveralls.io/repos/dbfixtures/pytest-dynamodb/badge.png?branch=v2.5.0
-    :target: https://coveralls.io/r/dbfixtures/pytest-dynamodb?branch=v2.5.0
+.. image:: https://coveralls.io/repos/dbfixtures/pytest-dynamodb/badge.png?branch=v2.5.1
+    :target: https://coveralls.io/r/dbfixtures/pytest-dynamodb?branch=v2.5.1
     :alt: Coverage Status
 
 What is this?

@@ -3,6 +3,15 @@ CHANGELOG
 
 .. towncrier release notes start
 
+2.5.1 (2025-04-04)
+==================
+
+Bugfixes
+--------
+
+- Fix packaging
+
+
 2.5.0 (2025-03-23)
 ==================
 
