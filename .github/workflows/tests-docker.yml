@@ -29,11 +29,11 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-    - uses: fizyk/actions-reuse/.github/actions/pipenv@v3.0.2
+    - uses: fizyk/actions-reuse/.github/actions/pipenv@v3.1.1
       with:
         python-version: ${{ matrix.python-version }}
         command: pytest -n 0 --cov-report=xml -k docker --dynamodb-host=localhost --dynamodb-port=8088
-    - uses: fizyk/actions-reuse/.github/actions/pipenv@v3.0.2
+    - uses: fizyk/actions-reuse/.github/actions/pipenv@v3.1.1
       with:
         python-version: ${{ matrix.python-version }}
         command: pytest -n 1 --cov-report=xml:coverage-xdist.xml -k docker --dynamodb-host=localhost --dynamodb-port=8088
