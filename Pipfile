@@ -11,7 +11,7 @@ boto3 = "==1.40.25"
 boto3-stubs = {version = "==1.40.21", extras = ["dynamodb"]}
 
 [dev-packages]
-towncrier = "==24.8.0"
+towncrier = "==25.8.0"
 pytest-cov = "==7.0.0"
 pytest-xdist = "==3.8.0"
 mypy = "==1.18.1"
