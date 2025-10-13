@@ -8,7 +8,7 @@ pytest = "==8.4.2"
 port-for = "==0.7.4"
 mirakuru = "==2.6.1"
 boto3 = "==1.40.50"
-boto3-stubs = {version = "==1.40.45", extras = ["dynamodb"]}
+boto3-stubs = {version = "==1.40.50", extras = ["dynamodb"]}
 
 [dev-packages]
 towncrier = "==25.8.0"
