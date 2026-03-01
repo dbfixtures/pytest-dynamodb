@@ -63,9 +63,9 @@ def dynamodb(
         dynamo_db = boto3.resource(
             "dynamodb",
             endpoint_url=f"http://{proc_fixture.host}:{proc_fixture.port}",
-            aws_access_key_id=access_key or config["aws_access_key"],
-            aws_secret_access_key=secret_key or config["aws_secret_key"],
-            region_name=region or config["aws_region"],
+            aws_access_key_id=access_key or config.aws_access_key,
+            aws_secret_access_key=secret_key or config.aws_secret_key,
+            region_name=region or config.aws_region,
         )
         pre_existing_tables = dynamo_db.meta.client.list_tables()
         yield dynamo_db

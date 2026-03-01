@@ -16,14 +16,16 @@
 # along with pytest-dynamodb. If not, see <http://www.gnu.org/licenses/>.
 """Configuration tools for pytest-dynamodb."""
 
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Optional, TypedDict
+from typing import Any, Optional
 
 from _pytest.fixtures import FixtureRequest
 
 
-class PytestDynamoDBConfigType(TypedDict):
-    """Configuration type dict."""
+@dataclass(frozen=True)
+class PytestDynamoDBConfig:
+    """Configuration container."""
 
     dir: Path
     host: str
@@ -34,8 +36,8 @@ class PytestDynamoDBConfigType(TypedDict):
     aws_region: str
 
 
-def get_config(request: FixtureRequest) -> PytestDynamoDBConfigType:
-    """Return a dictionary with config options."""
+def get_config(request: FixtureRequest) -> PytestDynamoDBConfig:
+    """Return a config object with options."""
 
     def get_conf_option(option: str) -> Any:
         option_name = "dynamodb_" + option
@@ -44,16 +46,15 @@ def get_config(request: FixtureRequest) -> PytestDynamoDBConfigType:
         )
 
     port = None
-    if get_conf_option("port"):
-        port = int(get_conf_option("port"))
+    if conf_port := get_conf_option("port"):
+        port = int(conf_port)
 
-    config: PytestDynamoDBConfigType = {
-        "dir": get_conf_option("dir"),
-        "host": get_conf_option("host"),
-        "port": port,
-        "delay": bool(get_conf_option("delay")),
-        "aws_access_key": get_conf_option("aws_access_key"),
-        "aws_secret_key": get_conf_option("aws_secret_key"),
-        "aws_region": get_conf_option("aws_region"),
-    }
-    return config
+    return PytestDynamoDBConfig(
+        dir=get_conf_option("dir"),
+        host=get_conf_option("host"),
+        port=port,
+        delay=bool(get_conf_option("delay")),
+        aws_access_key=get_conf_option("aws_access_key"),
+        aws_secret_key=get_conf_option("aws_secret_key"),
+        aws_region=get_conf_option("aws_region"),
+    )

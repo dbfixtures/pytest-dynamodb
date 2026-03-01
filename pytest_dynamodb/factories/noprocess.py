@@ -63,8 +63,8 @@ def dynamodb_noproc(
         """
         config = get_config(request)
 
-        dynamodb_port = port or config["port"] or 8000
-        dynamodb_host = host or config["host"]
+        dynamodb_port = port or config.port or 8000
+        dynamodb_host = host or config.host
 
         noop_exec = NoProcExecutor(dynamodb_host, dynamodb_port)
 
