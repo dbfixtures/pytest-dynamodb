@@ -37,7 +37,7 @@ class JarPathException(Exception):
 
 def dynamodb_proc(
     dynamodb_dir: Optional[str] = None,
-    host: str = "localhost",
+    host: Optional[str] = None,
     port: Optional[PortType] = None,
     delay: bool = False,
 ) -> Callable[[FixtureRequest], Any]:
@@ -84,7 +84,7 @@ def dynamodb_proc(
         dynamodb_delay = (
             "-delayTransientStatuses" if delay or config.delay else ""
         )
-        dynamodb_host = host or config.host
+        dynamodb_host = host if host is not None else config.host
         dynamodb_executor = TCPExecutor(
             f"java -Djava.library.path=./DynamoDBLocal_lib "
             f"-jar {path_dynamodb_jar} "
