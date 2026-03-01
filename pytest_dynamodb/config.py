@@ -41,9 +41,7 @@ def get_config(request: FixtureRequest) -> PytestDynamoDBConfig:
 
     def get_conf_option(option: str) -> Any:
         option_name = "dynamodb_" + option
-        return request.config.getoption(option_name) or request.config.getini(
-            option_name
-        )
+        return request.config.getoption(option_name) or request.config.getini(option_name)
 
     port = None
     if conf_port := get_conf_option("port"):

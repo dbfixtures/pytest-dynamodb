@@ -100,9 +100,7 @@ def pytest_addoption(parser: Parser) -> None:
         help=_help_host,
     )
 
-    parser.addoption(
-        "--dynamodb-port", action="store", dest="dynamodb_port", help=_help_port
-    )
+    parser.addoption("--dynamodb-port", action="store", dest="dynamodb_port", help=_help_port)
 
     parser.addoption(
         "--dynamodb-delay",

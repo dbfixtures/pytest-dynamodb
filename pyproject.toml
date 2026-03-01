@@ -61,13 +61,9 @@ xfail_strict=true
 addopts = "--max-worker-restart=0 --cov"
 testpaths = "tests"
 
-[tool.black]
-line-length = 80
-target-version = ['py39']
-include = '.*\.pyi?$'
-
 [tool.ruff]
 line-length = 100
+target-version = 'py39'
 
 [tool.ruff.lint]
 select = [
@@ -75,6 +71,8 @@ select = [
     "F",   # pyflakes
     "I",   # isort
     "D",   # pydocstyle
+    #Tryceratops
+    "TRY003",
 ]
 
 [tool.towncrier]

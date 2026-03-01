@@ -34,6 +34,13 @@ class JarPathException(Exception):
     So, we want to tell him that he has to provide a path to dynamodb dir.
     """
 
+    def __init__(self, jar_path: str) -> None:
+        """Initialize JarPathException exception."""
+        super().__init__(
+            f"Cannot find DynamoDBLocal.jar at: {jar_path}. "
+            "Provide a valid path to the directory containing the jar."
+        )
+
 
 def dynamodb_proc(
     dynamodb_dir: Optional[str] = None,
@@ -70,20 +77,14 @@ def dynamodb_proc(
         :returns: tcp executor
         """
         config = get_config(request)
-        path_dynamodb_jar = os.path.join(
-            (dynamodb_dir or config.dir), "DynamoDBLocal.jar"
-        )
+        path_dynamodb_jar = os.path.join((dynamodb_dir or config.dir), "DynamoDBLocal.jar")
 
         if not os.path.isfile(path_dynamodb_jar):
-            raise JarPathException(
-                "You have to provide a path to the dir with dynamodb jar file."
-            )
+            raise JarPathException(path_dynamodb_jar)
 
         dynamodb_port = get_port(port or config.port)
         assert dynamodb_port
-        dynamodb_delay = (
-            "-delayTransientStatuses" if delay or config.delay else ""
-        )
+        dynamodb_delay = "-delayTransientStatuses" if delay or config.delay else ""
         dynamodb_host = host if host is not None else config.host
         dynamodb_executor = TCPExecutor(
             f"java -Djava.library.path=./DynamoDBLocal_lib "
