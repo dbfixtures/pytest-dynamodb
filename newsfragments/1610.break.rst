@@ -1,0 +1,5 @@
+Converted DynamoDB config from a TypedDict to a frozen dataclass.
+
+.. warning::
+
+   Update usages of `pytest_dynamodb.get_config` to attribute access.

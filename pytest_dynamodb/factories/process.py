@@ -71,7 +71,7 @@ def dynamodb_proc(
         """
         config = get_config(request)
         path_dynamodb_jar = os.path.join(
-            (dynamodb_dir or config["dir"]), "DynamoDBLocal.jar"
+            (dynamodb_dir or config.dir), "DynamoDBLocal.jar"
         )
 
         if not os.path.isfile(path_dynamodb_jar):
@@ -79,12 +79,12 @@ def dynamodb_proc(
                 "You have to provide a path to the dir with dynamodb jar file."
             )
 
-        dynamodb_port = get_port(port or config["port"])
+        dynamodb_port = get_port(port or config.port)
         assert dynamodb_port
         dynamodb_delay = (
-            "-delayTransientStatuses" if delay or config["delay"] else ""
+            "-delayTransientStatuses" if delay or config.delay else ""
         )
-        dynamodb_host = host or config["host"]
+        dynamodb_host = host or config.host
         dynamodb_executor = TCPExecutor(
             f"java -Djava.library.path=./DynamoDBLocal_lib "
             f"-jar {path_dynamodb_jar} "
