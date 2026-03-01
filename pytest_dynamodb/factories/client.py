@@ -55,8 +55,8 @@ def dynamodb(
             https://boto3.readthedocs.io/en/latest/reference/services/dynamodb.html#DynamoDB.Client
         :returns: connection to DynamoDB database
         """
-        proc_fixture: Union[TCPExecutor, NoProcExecutor] = (
-            request.getfixturevalue(process_fixture_name)
+        proc_fixture: Union[TCPExecutor, NoProcExecutor] = request.getfixturevalue(
+            process_fixture_name
         )
         config = get_config(request)
 
