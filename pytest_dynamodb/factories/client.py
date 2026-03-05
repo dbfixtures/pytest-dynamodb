@@ -16,7 +16,7 @@
 # along with pytest-dynamodb. If not, see <http://www.gnu.org/licenses/>.
 """Client fixture factory."""
 
-from typing import Any, Callable, Generator, Optional, Union
+from typing import Any, Callable, Generator
 
 import boto3
 import pytest
@@ -30,9 +30,9 @@ from pytest_dynamodb.factories.noprocess import NoProcExecutor
 
 def dynamodb(
     process_fixture_name: str,
-    access_key: Optional[str] = None,
-    secret_key: Optional[str] = None,
-    region: Optional[str] = None,
+    access_key: str | None = None,
+    secret_key: str | None = None,
+    region: str | None = None,
 ) -> Callable[[FixtureRequest], Any]:
     """Fixture factory for DynamoDB resource.
 
@@ -55,9 +55,7 @@ def dynamodb(
             https://boto3.readthedocs.io/en/latest/reference/services/dynamodb.html#DynamoDB.Client
         :returns: connection to DynamoDB database
         """
-        proc_fixture: Union[TCPExecutor, NoProcExecutor] = request.getfixturevalue(
-            process_fixture_name
-        )
+        proc_fixture: TCPExecutor | NoProcExecutor = request.getfixturevalue(process_fixture_name)
         config = get_config(request)
 
         dynamo_db = boto3.resource(

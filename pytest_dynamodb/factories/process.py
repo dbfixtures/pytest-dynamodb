@@ -17,7 +17,7 @@
 """Process fixture factory."""
 
 import os
-from typing import Any, Callable, Generator, Optional
+from typing import Any, Callable, Generator
 
 import pytest
 from _pytest.fixtures import FixtureRequest
@@ -43,9 +43,9 @@ class JarPathException(Exception):
 
 
 def dynamodb_proc(
-    dynamodb_dir: Optional[str] = None,
-    host: Optional[str] = None,
-    port: Optional[PortType] = None,
+    dynamodb_dir: str | None = None,
+    host: str | None = None,
+    port: PortType | None = None,
     delay: bool = False,
 ) -> Callable[[FixtureRequest], Any]:
     """Process fixture factory for DynamoDB.

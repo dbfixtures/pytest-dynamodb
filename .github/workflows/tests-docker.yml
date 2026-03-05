@@ -12,14 +12,14 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
     env:
       OS: ubuntu-latest
       PYTHON: ${{ matrix.python-version }}
     # Service containers to run with `container-job`
     services:
       dynamodb:
-        image: amazon/dynamodb-local:2.6.0
+        image: amazon/dynamodb-local:3.0.0
         ports:
           - 8088:8000
 

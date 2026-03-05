@@ -18,7 +18,7 @@
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 from _pytest.fixtures import FixtureRequest
 
@@ -29,7 +29,7 @@ class PytestDynamoDBConfig:
 
     dir: Path
     host: str
-    port: Optional[int]
+    port: int | None
     delay: bool
     aws_access_key: str
     aws_secret_key: str
