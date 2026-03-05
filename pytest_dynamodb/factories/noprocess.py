@@ -16,7 +16,7 @@
 # along with pytest-dynamodb. If not, see <http://www.gnu.org/licenses/>.
 """No process fixture factory."""
 
-from typing import Any, Callable, Generator, NamedTuple, Optional
+from typing import Any, Callable, Generator, NamedTuple
 
 import pytest
 from pytest import FixtureRequest
@@ -32,8 +32,8 @@ class NoProcExecutor(NamedTuple):
 
 
 def dynamodb_noproc(
-    host: Optional[str] = None,
-    port: Optional[int] = None,
+    host: str | None = None,
+    port: int | None = None,
 ) -> Callable[[FixtureRequest], Any]:
     """Process fixture factory for DynamoDB.
 
