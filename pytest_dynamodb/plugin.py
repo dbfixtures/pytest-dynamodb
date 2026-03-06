@@ -26,6 +26,7 @@ from pytest_dynamodb import factories
 _help_dir = "Path to DynamoDB installation path"
 _help_host = "Host at which DynamoDB will accept connections"
 _help_port = "Port at which DynamoDB will accept connections"
+_help_port_search_count = "Number of times, pytest-dynamodb will search for free port"
 _help_delay = "causes DynamoDB to introduce delays for certain operations"
 _help_aws_secret_key = "AWS secret key."
 _help_aws_access_key = "AWS access key."
@@ -42,6 +43,9 @@ def pytest_addoption(parser: Parser) -> None:
         name="dynamodb_port",
         help=_help_port,
         default=None,
+    )
+    parser.addini(
+        name="dynamodb_port_search_count", type="int", help=_help_port_search_count, default=5
     )
 
     parser.addini(name="dynamodb_delay", help=_help_delay, default=False)
@@ -101,6 +105,13 @@ def pytest_addoption(parser: Parser) -> None:
     )
 
     parser.addoption("--dynamodb-port", action="store", dest="dynamodb_port", help=_help_port)
+    parser.addoption(
+        "--dynamodb-port-search-count",
+        action="store",
+        type=int,
+        dest="dynamodb_port_search_count",
+        help=_help_port_search_count,
+    )
 
     parser.addoption(
         "--dynamodb-delay",

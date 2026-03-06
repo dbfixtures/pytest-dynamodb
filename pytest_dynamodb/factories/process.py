@@ -17,14 +17,14 @@
 """Process fixture factory."""
 
 import os
-from typing import Any, Callable, Generator
+from typing import Callable, Generator, Iterable
 
 import pytest
-from _pytest.fixtures import FixtureRequest
 from mirakuru import ProcessExitedWithError, TCPExecutor
-from port_for import PortType, get_port
+from port_for import PortForException, PortType, get_port
+from pytest import FixtureRequest, TempPathFactory
 
-from pytest_dynamodb.config import get_config
+from pytest_dynamodb.config import DynamoDBConfig, get_config
 
 
 class JarPathException(Exception):
@@ -42,12 +42,41 @@ class JarPathException(Exception):
         )
 
 
+class DynamoDBPortUsedException(PortForException):
+    """Exception thrown, in case only checked port can be found, but is taken."""
+
+    def __init__(self, port: int) -> None:
+        """Initialize DynamoDBNoFreePortException exception."""
+        super().__init__(f"Port {port} already in use, probably by other instances of the test. ")
+
+
+class DynamoDBNoFreePortException(PortForException):
+    """Exception thrown, in case we can't find a free port."""
+
+    def __init__(self, n: int, used_ports: Iterable[int]) -> None:
+        """Initialize DynamoDBNoFreePortException exception."""
+        super().__init__(
+            f"Attempted {n} times to select ports. "
+            f"All attempted ports: {', '.join(map(str, used_ports))} are already "
+            f"in use, probably by other instances of the test."
+        )
+
+
+def _dynamodb_port(
+    port: PortType | None, config: DynamoDBConfig, excluded_ports: Iterable[int]
+) -> int:
+    """User specified port, otherwise find an unused port from config."""
+    dynamodb_port = get_port(port, excluded_ports) or get_port(config.port, excluded_ports)
+    assert dynamodb_port is not None
+    return dynamodb_port
+
+
 def dynamodb_proc(
     dynamodb_dir: str | None = None,
     host: str | None = None,
     port: PortType | None = None,
     delay: bool = False,
-) -> Callable[[FixtureRequest], Any]:
+) -> Callable[[FixtureRequest, TempPathFactory], Generator[TCPExecutor, None, None]]:
     """Process fixture factory for DynamoDB.
 
     :param str dynamodb_dir: a path to dynamodb dir (without spaces)
@@ -66,15 +95,12 @@ def dynamodb_proc(
     @pytest.fixture(scope="session")
     def dynamodb_proc_fixture(
         request: FixtureRequest,
+        tmp_path_factory: TempPathFactory,
     ) -> Generator[TCPExecutor, None, None]:
         """Process fixture for DynamoDB.
 
         It starts DynamoDB when first used and stops it at the end
         of the tests. Works on ``DynamoDBLocal.jar``.
-
-        :param FixtureRequest request: fixture request object
-        :rtype: pytest_dbfixtures.executors.TCPExecutor
-        :returns: tcp executor
         """
         config = get_config(request)
         path_dynamodb_jar = os.path.join((dynamodb_dir or config.dir), "DynamoDBLocal.jar")
@@ -82,7 +108,26 @@ def dynamodb_proc(
         if not os.path.isfile(path_dynamodb_jar):
             raise JarPathException(path_dynamodb_jar)
 
-        dynamodb_port = get_port(port or config.port)
+        port_path = tmp_path_factory.getbasetemp()
+        if hasattr(request.config, "workerinput"):
+            port_path = tmp_path_factory.getbasetemp().parent
+
+        n = 0
+        used_ports: set[int] = set()
+        while True:
+            try:
+                dynamodb_port = _dynamodb_port(port, config, used_ports)
+                port_filename_path = port_path / f"dynamo-{dynamodb_port}.port"
+                if dynamodb_port in used_ports:
+                    raise DynamoDBPortUsedException(dynamodb_port)
+                used_ports.add(dynamodb_port)
+                with port_filename_path.open("x") as port_file:
+                    port_file.write(f"dynamodb_port {dynamodb_port}\n")
+                break
+            except FileExistsError:
+                n += 1
+                if n >= config.port_search_count:
+                    raise DynamoDBNoFreePortException(n, used_ports) from None
         assert dynamodb_port
         dynamodb_delay = "-delayTransientStatuses" if delay or config.delay else ""
         dynamodb_host = host if host is not None else config.host
