@@ -24,19 +24,20 @@ from _pytest.fixtures import FixtureRequest
 
 
 @dataclass(frozen=True)
-class PytestDynamoDBConfig:
+class DynamoDBConfig:
     """Configuration container."""
 
     dir: Path
     host: str
     port: int | None
+    port_search_count: int
     delay: bool
     aws_access_key: str
     aws_secret_key: str
     aws_region: str
 
 
-def get_config(request: FixtureRequest) -> PytestDynamoDBConfig:
+def get_config(request: FixtureRequest) -> DynamoDBConfig:
     """Return a config object with options."""
 
     def get_conf_option(option: str) -> Any:
@@ -47,10 +48,11 @@ def get_config(request: FixtureRequest) -> PytestDynamoDBConfig:
     if conf_port := get_conf_option("port"):
         port = int(conf_port)
 
-    return PytestDynamoDBConfig(
+    return DynamoDBConfig(
         dir=get_conf_option("dir"),
         host=get_conf_option("host"),
         port=port,
+        port_search_count=int(get_conf_option("port_search_count")),
         delay=bool(get_conf_option("delay")),
         aws_access_key=get_conf_option("aws_access_key"),
         aws_secret_key=get_conf_option("aws_secret_key"),
