@@ -28,10 +28,10 @@ classifiers = [
     "Framework :: Pytest",
 ]
 dependencies = [
-    "pytest",
-    "port-for>=0.7.1",
-    "mirakuru",
-    "boto3",
+    "pytest>=8.4.0",
+    "port-for>=0.7.3",
+    "mirakuru>=2.6.0",
+    "boto3>=1.42.0",
     "boto3-stubs[dynamodb]",
 ]
 requires-python = ">= 3.10"
