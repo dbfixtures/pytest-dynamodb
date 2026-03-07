@@ -7,7 +7,7 @@ name = "pypi"
 pytest = "==9.0.2"
 port-for = "==1.0.0"
 mirakuru = "==3.0.2"
-boto3 = "==1.42.59"
+boto3 = "==1.42.63"
 boto3-stubs = {version = "==1.42.63", extras = ["dynamodb"]}
 
 [dev-packages]
