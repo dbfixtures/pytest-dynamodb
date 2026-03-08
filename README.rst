@@ -39,6 +39,11 @@ This is a pytest plugin, that enables you to test your code that relies on a run
 It allows you to specify fixtures for DynamoDB process and client (resource in AWS boto terms).
 
 
+.. image:: https://raw.githubusercontent.com/dbfixtures/pytest-dynamodb/main/docs/images/architecture.svg
+    :alt: Project Architecture Diagram
+    :align: center
+
+
 How to use
 ==========
 
