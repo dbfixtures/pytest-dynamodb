@@ -1,0 +1,16 @@
+sequenceDiagram
+    autonumber
+    participant Pytest as Pytest runner
+    participant ProcFactory as dynamodb_proc fixture
+    participant DDBProcess as DynamoDB Local process
+    participant ResourceFactory as dynamodb resource fixture
+    participant DynamoDB as DynamoDB tables
+
+    Pytest->>ProcFactory: request dynamodb_proc
+    ProcFactory->>DDBProcess: start process
+    loop per test
+        Pytest->>ResourceFactory: request dynamodb resource
+        ResourceFactory->>DDBProcess: connect with boto3 resource
+        Pytest->>DynamoDB: run test using tables
+        Pytest->>DynamoDB: teardown: delete all tables
+    end
