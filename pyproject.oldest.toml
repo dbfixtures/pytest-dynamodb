@@ -1,4 +1,3 @@
 [tool.pytest.ini_options]
 xfail_strict = true
-addopts = "--cov"
 testpaths = "tests"
