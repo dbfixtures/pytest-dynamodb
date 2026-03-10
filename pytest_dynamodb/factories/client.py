@@ -28,6 +28,14 @@ from pytest_dynamodb.config import get_config
 from pytest_dynamodb.factories.noprocess import NoProcExecutor
 
 
+def _list_table_names(dynamo_db: DynamoDBServiceResource) -> set[str]:
+    table_names: set[str] = set()
+    paginator = dynamo_db.meta.client.get_paginator("list_tables")
+    for page in paginator.paginate():
+        table_names.update(page.get("TableNames", []))
+    return table_names
+
+
 def dynamodb(
     process_fixture_name: str,
     access_key: str | None = None,
@@ -65,7 +73,7 @@ def dynamodb(
             aws_secret_access_key=secret_key or config.aws_secret_key,
             region_name=region or config.aws_region,
         )
-        pre_existing_tables = dynamo_db.meta.client.list_tables()
+        pre_existing_tables = _list_table_names(dynamo_db)
         yield dynamo_db
         for table in dynamo_db.tables.all():  # pylint:disable=no-member
             if table.table_name not in pre_existing_tables:

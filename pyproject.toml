@@ -59,6 +59,8 @@ namespaces = false
 [tool.pytest]
 xfail_strict = true
 testpaths = ["tests"]
+norecursedirs = ["tests/examples"]
+pytester_example_dir = "tests/examples"
 
 [tool.ruff]
 line-length = 100
