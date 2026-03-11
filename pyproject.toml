@@ -58,7 +58,6 @@ namespaces = false
 
 [tool.pytest]
 xfail_strict = true
-addopts = ["--cov"]
 testpaths = ["tests"]
 
 [tool.ruff]
