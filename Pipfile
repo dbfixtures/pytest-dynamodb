@@ -13,7 +13,7 @@ pytest-dynamodb = {path = ".", editable = true}
 
 [dev-packages]
 towncrier = "==25.8.0"
-coverage = "==7.11.0"
+coverage = "==7.13.4"
 pytest-xdist = "==3.8.0"
 mypy = "==1.19.1"
 tbump = "==6.11.0"
