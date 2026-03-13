@@ -21,82 +21,109 @@ pytest-dynamodb
     :target: https://pypi.python.org/pypi/pytest-dynamodb/
     :alt: License
 
-Package status
---------------
-
-.. image:: https://travis-ci.org/dbfixtures/pytest-dynamodb.svg?branch=v2.5.1
-    :target: https://travis-ci.org/dbfixtures/pytest-dynamodb
-    :alt: Tests
-
-.. image:: https://coveralls.io/repos/dbfixtures/pytest-dynamodb/badge.png?branch=v2.5.1
-    :target: https://coveralls.io/r/dbfixtures/pytest-dynamodb?branch=v2.5.1
-    :alt: Coverage Status
+DynamoDB fixtures for pytest.
 
 What is this?
 =============
 
-This is a pytest plugin, that enables you to test your code that relies on a running DynamoDB Database.
-It allows you to specify fixtures for DynamoDB process and client (resource in AWS boto terms).
+``pytest-dynamodb`` is a pytest plugin for tests that need a running DynamoDB
+instance. It provides fixtures for both a managed local process and a
+connection to an already running instance.
 
 
-.. image:: https://raw.githubusercontent.com/dbfixtures/pytest-dynamodb/main/docs/images/architecture.svg
-    :alt: Project Architecture Diagram
-    :align: center
+Quickstart: first test
+======================
+
+1. Install the plugin and your test dependencies.
+2. Download and unpack DynamoDB Local (see AWS docs):
+   https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html
+   Place extracted files in ``dynamodb_dir`` (default: ``/tmp/dynamodb``), or
+   choose another location and pass it via ``--dynamodb-dir`` when running tests.
+3. Make sure Java is available in your environment (DynamoDB Local runs as a JAR).
+4. Write a test that uses the built-in ``dynamodb`` fixture:
+
+.. code-block:: python
+
+    import uuid
+
+    def test_can_put_and_get_item(dynamodb):
+        table = dynamodb.create_table(
+            TableName="Test",
+            KeySchema=[{"AttributeName": "id", "KeyType": "HASH"}],
+            AttributeDefinitions=[{"AttributeName": "id", "AttributeType": "S"}],
+            ProvisionedThroughput={"ReadCapacityUnits": 10, "WriteCapacityUnits": 10},
+        )
+
+        _id = str(uuid.uuid4())
+        table.put_item(Item={"id": _id, "test_key": "test_value"})
+        item = table.get_item(Key={"id": _id})
+
+        assert item["Item"]["test_key"] == "test_value"
+
+5. Run tests:
+
+.. code-block:: shell
+
+    pytest
+
+For a full example, see ``tests/test_dynamodb.py``.
 
 
 How to use
 ==========
 
-.. warning::
+The plugin contains three fixtures:
 
-    Please download the `DynamoDB database locally <http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html>`_.
+* **dynamodb** - function-scoped ``DynamoDBServiceResource`` fixture.
+* **dynamodb_proc** - session-scoped fixture that starts DynamoDB Local on first use and stops it at the end of the test session.
+* **dynamodb_noproc** - session-scoped fixture that connects to an externally managed DynamoDB instance (for example, Docker).
 
-Plugin contains two fixtures
+When to use which fixture:
 
-* **dynamodb** - it's a client/resource fixture that has functional scope. After each test it drops tables in DynamoDB.
-* **dynamodb_proc** - session scoped fixture, that starts DynamoDB instance at it's first use and stops at the end of the tests.
-* **dynamodb_noproc** - session scoped fixture, that's used to connect to dynamodb mained externally (like docker).
+* Use ``dynamodb`` (default) when tests should manage a local process automatically.
+* Use ``dynamodb_noproc`` when DynamoDB is already running elsewhere and lifecycle is managed outside pytest.
 
-Simply include one of these fixtures into your tests fixture list.
+Simply include one of these fixtures in your test fixture list.
 
-You can also create additional dynamodb client and process fixtures if you'd need to:
-
-
-.. code-block:: python
-
-    from pytest_dynamodb import factories
-
-    dynamodb_my_proc = factories.dynamodb_proc(
-        port=None, logsdir='/tmp', delay=True)
-    dynamodb_my = factories.dynamodb('dynamodb_my_proc')
-
-.. note::
-
-    Each DynamoDB process fixture can be configured in a different way than the others through the fixture factory arguments.
-
+You can also create additional client and process fixtures:
 
 .. code-block:: python
 
     from pytest_dynamodb import factories
 
-    dynamodb_my_noproc = factories.dynamodb_noproc(
-        host="dynamodb", port=8088)
-    dynamodb_my = factories.dynamodb('dynamodb_my_noproc')
+    dynamodb_my_proc = factories.dynamodb_proc(port=None, delay=True)
+    dynamodb_my = factories.dynamodb("dynamodb_my_proc")
 
 .. note::
 
-    Each DynamoDB process fixture can be configured in a different way than the others through the fixture factory arguments.
+    Each DynamoDB process fixture can be configured independently using fixture factory arguments.
+
+.. code-block:: python
+
+    from pytest_dynamodb import factories
+
+    dynamodb_my_noproc = factories.dynamodb_noproc(host="dynamodb", port=8088)
+    dynamodb_my = factories.dynamodb("dynamodb_my_noproc")
+
+.. note::
+
+    ``dynamodb_noproc`` only provides connection details. Process lifecycle and data cleanup are managed by you.
 
 
 Configuration
 =============
 
-You can define your settings in three ways, it's fixture factory argument, command line option and pytest.ini configuration option.
-You can pick which you prefer, but remember that these settings are handled in the following order:
+You can define settings in three ways:
 
-    * ``Fixture factory argument``
-    * ``Command line option``
-    * ``Configuration option in your pytest.ini file``
+* ``Fixture factory argument``
+* ``Command line option``
+* ``Configuration option in pytest.ini``
+
+Precedence order:
+
+* Fixture factory argument
+* Command line option
+* ``pytest.ini`` option
 
 .. list-table:: Configuration options
    :header-rows: 1
@@ -106,17 +133,17 @@ You can pick which you prefer, but remember that these settings are handled in t
      - Command line option
      - pytest.ini option
      - Default
-   * - Path to dynamodb jar file
+   * - Path to DynamoDB JAR directory
      - dynamodb_dir
      - --dynamodb-dir
      - dynamodb_dir
      - /tmp/dynamodb
-   * - host
+   * - Host
      - host
      - --dynamodb-host
      - dynamodb_host
      - 127.0.0.1
-   * - port
+   * - Port
      - port
      - --dynamodb-port
      - dynamodb_port
@@ -142,33 +169,38 @@ You can pick which you prefer, but remember that these settings are handled in t
      - dynamodb_delay
      - false
 
-
 Example usage:
 
-* pass it as an argument in your own fixture
+* Pass as fixture factory argument:
 
-    .. code-block:: python
+  .. code-block:: python
 
-        dynamodb_proc = factories.dynamodb_proc(
-            port=8888)
+      from pytest_dynamodb import factories
 
-* use ``--dynamodb-port`` command line option when you run your tests
+      dynamodb_proc = factories.dynamodb_proc(port=8888)
 
-    .. code-block::
+* Use command line option:
 
-        py.test tests --dynamodb-port=8888
+  .. code-block:: shell
+
+      pytest tests --dynamodb-port=8888
+
+* Set in ``pytest.ini``:
+
+  .. code-block:: ini
+
+      [pytest]
+      dynamodb_port = 8888
 
 
-* specify your port as ``dynamodb_port`` in your ``pytest.ini`` file.
+Known issues
+============
 
-    To do so, put a line like the following under the ``[pytest]`` section of your ``pytest.ini``:
+* Parallel runs with a fixed ``--dynamodb-port`` may fail because workers contend for the same port.
 
-    .. code-block:: ini
-
-        [pytest]
-        dynamodb_port = 8888
 
 Package resources
------------------
+=================
 
+* Source: https://github.com/dbfixtures/pytest-dynamodb
 * Bug tracker: https://github.com/dbfixtures/pytest-dynamodb/issues

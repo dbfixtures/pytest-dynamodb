@@ -152,9 +152,6 @@ default = ""
 src = "pytest_dynamodb/__init__.py"
 
 [[tool.tbump.file]]
-src = "README.rst"
-
-[[tool.tbump.file]]
 src = "pyproject.toml"
 search = 'version = "{current_version}"'
 
