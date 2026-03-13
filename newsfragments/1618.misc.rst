@@ -1,1 +1,0 @@
-Test pytest-dynamodb against the oldest dependencies.

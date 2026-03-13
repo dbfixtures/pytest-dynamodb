@@ -1,5 +1,0 @@
-Reworked ``README.rst`` to improve first-time onboarding and scannability.
-Added a quickstart-first flow (from install to first test), clarified fixture
-roles/scopes and when to use ``dynamodb_proc`` vs ``dynamodb_noproc``,
-modernized examples to use ``pytest``, removed stale fixture examples, and
-added a ``Known issues`` section covering parallel fixed-port contention.

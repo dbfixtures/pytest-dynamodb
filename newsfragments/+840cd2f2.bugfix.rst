@@ -1,1 +1,0 @@
-Fixed a bug where `dynamodb_proc` always defaulted to `localhost`, ignoring `config.host` when no explicit host was passed.

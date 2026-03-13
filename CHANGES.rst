@@ -3,6 +3,67 @@ CHANGELOG
 
 .. towncrier release notes start
 
+pytest-dynamodb 3.0.0 (2026-03-13)
+==================================
+
+Breaking changes
+----------------
+
+- Converted DynamoDB config from a TypedDict to a frozen dataclass.
+
+  .. warning::
+
+     Update usages of `pytest_dynamodb.get_config` to attribute access.
+
+  (`#1610 <https://github.com/dbfixtures/pytest-dynamodb/issues/1610>`_)
+- Drop support for Python 3.9 (`#1621 <https://github.com/dbfixtures/pytest-dynamodb/issues/1621>`_)
+
+
+Features
+--------
+
+- Improved xdist compatibility by introducing port-locking mechanism.
+
+  If one worker claims a port, it will lock it, and other xdist workers will
+  either check another port or raise an error with clear message. (`#1616 <https://github.com/dbfixtures/pytest-dynamodb/issues/1616>`_)
+- Add support for Python 3.14 (`#1621 <https://github.com/dbfixtures/pytest-dynamodb/issues/1621>`_)
+
+
+Bugfixes
+--------
+
+- Fixed `dynamodb` fixture teardown to preserve tables that existed before fixture setup, deleting only tables created during the test.
+- Fixed a bug where `dynamodb_proc` always defaulted to `localhost`, ignoring `config.host` when no explicit host was passed.
+
+
+Documentation
+-------------
+
+- Documented the pytest-elasticsearch plugin architecture with a new sequence diagram. (`#1619 <https://github.com/dbfixtures/pytest-dynamodb/issues/1619>`_)
+- Reworked ``README.rst`` to improve first-time onboarding and scannability.
+  Added a quickstart-first flow (from install to first test), clarified fixture
+  roles/scopes and when to use ``dynamodb_proc`` vs ``dynamodb_noproc``,
+  modernized examples to use ``pytest``, removed stale fixture examples, and
+  added a ``Known issues`` section covering parallel fixed-port contention.
+
+
+Miscellaneus
+------------
+
+- Adjusted workflows for actions-reuse 4.1.1 (`#1562 <https://github.com/dbfixtures/pytest-dynamodb/issues/1562>`_)
+- Run xdist tests on CI with -n auto. (`#1616 <https://github.com/dbfixtures/pytest-dynamodb/issues/1616>`_)
+- Replace black with ruff-format (`#1617 <https://github.com/dbfixtures/pytest-dynamodb/issues/1617>`_)
+- Test pytest-dynamodb against the oldest dependencies. (`#1618 <https://github.com/dbfixtures/pytest-dynamodb/issues/1618>`_)
+- Add the `check-python-version-consistency` pre-commit hook for `pyproject.toml`.
+
+  This hook verifies that supported Python version declarations remain consistent. (`#1620 <https://github.com/dbfixtures/pytest-dynamodb/issues/1620>`_)
+- Add release workflow to automate release process (`#1622 <https://github.com/dbfixtures/pytest-dynamodb/issues/1622>`_)
+- Update dynamodb to the newest versions on CI (`#1642 <https://github.com/dbfixtures/pytest-dynamodb/issues/1642>`_)
+- Update pytest configuration to toml-native (`#1643 <https://github.com/dbfixtures/pytest-dynamodb/issues/1643>`_)
+- Improve reliability of Coverage reporting on CI
+- Install as editable on CI, instead of pick-import plugin to the conftest
+
+
 2.5.1 (2025-04-04)
 ==================
 

@@ -1,1 +1,0 @@
-Install as editable on CI, instead of pick-import plugin to the conftest

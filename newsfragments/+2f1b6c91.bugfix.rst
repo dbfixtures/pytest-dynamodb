@@ -1,1 +1,0 @@
-Fixed `dynamodb` fixture teardown to preserve tables that existed before fixture setup, deleting only tables created during the test.
