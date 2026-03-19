@@ -80,7 +80,7 @@ jobs:
         data-file: .coverage.docker
         output-file: coverage-docker.xml
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v5.5.2
+      uses: codecov/codecov-action@v5.5.3
       with:
         files: coverage-serial.xml,coverage-xdist.xml,coverage-docker.xml
         flags: linux
