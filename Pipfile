@@ -8,7 +8,7 @@ pytest = "==9.0.2"
 port-for = "==1.0.0"
 mirakuru = "==3.0.2"
 boto3 = "==1.42.63"
-boto3-stubs = {version = "==1.42.66", extras = ["dynamodb"]}
+boto3-stubs = {version = "==1.42.71", extras = ["dynamodb"]}
 pytest-dynamodb = {path = ".", editable = true}
 
 [dev-packages]
