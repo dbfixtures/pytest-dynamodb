@@ -39,7 +39,7 @@ Bugfixes
 Documentation
 -------------
 
-- Documented the pytest-elasticsearch plugin architecture with a new sequence diagram. (`#1619 <https://github.com/dbfixtures/pytest-dynamodb/issues/1619>`_)
+- Documented the pytest-dynamodb plugin architecture with a new sequence diagram. (`#1619 <https://github.com/dbfixtures/pytest-dynamodb/issues/1619>`_)
 - Reworked ``README.rst`` to improve first-time onboarding and scannability.
   Added a quickstart-first flow (from install to first test), clarified fixture
   roles/scopes and when to use ``dynamodb_proc`` vs ``dynamodb_noproc``,
