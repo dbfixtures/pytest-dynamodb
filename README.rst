@@ -30,6 +30,9 @@ What is this?
 instance. It provides fixtures for both a managed local process and a
 connection to an already running instance.
 
+.. image:: https://raw.githubusercontent.com/dbfixtures/pytest-dynamodb/main/docs/images/architecture.svg
+    :alt: Project Architecture Diagram
+    :align: center
 
 Quickstart: first test
 ======================
