@@ -21,9 +21,6 @@ develop-eggs
 lib
 lib64
 
-# Pipenv
-Pipfile.lock
-
 # Installer logs
 pip-log.txt
 
