@@ -1,6 +1,6 @@
 [build-system]
-build-backend = "setuptools.build_meta"
-requires = [ "setuptools>=61.0.0" ]
+build-backend = "uv_build"
+requires = [ "uv-build>=0.12,<0.13" ]
 
 [project]
 name = "pytest-dynamodb"
@@ -49,13 +49,26 @@ Changelog = "https://github.com/dbfixtures/pytest-dynamodb/blob/v3.0.0/CHANGES.r
 [project.entry-points.pytest11]
 pytest_dynamodb = "pytest_dynamodb.plugin"
 
-[tool.setuptools]
-zip-safe = true
+[dependency-groups]
+dev = [
+    "boto3==1.43.78",
+    "boto3-stubs[dynamodb]==1.43.79",
+    "coverage==7.15.4",
+    "mirakuru==3.0.2",
+    "mypy==2.3.1; implementation_name=='cpython'",
+    "port-for==1.0.0",
+    "pytest==9.1.1",
+    "pytest-xdist==3.8.0",
+    "towncrier==25.8.0",
+]
+release = [
+    "tbump==6.11.0",
+]
 
-[tool.setuptools.packages.find]
-include = [ "pytest_dynamodb*" ]
-exclude = [ "tests*" ]
-namespaces = false
+[tool.uv.build-backend]
+module-name = "pytest_dynamodb"
+module-root = ""
+source-include = [ "CHANGES.rst" ]
 
 [tool.ruff]
 target-version = "py310"
@@ -89,7 +102,7 @@ xfail_strict = true
 
 [[tool.tbump.before_commit]]
 name = "Build changelog"
-cmd = "pipenv run towncrier build --version {new_version} --yes"
+cmd = "uv run towncrier build --version {new_version} --yes"
 
 [[tool.tbump.field]]
 name = "extra"
