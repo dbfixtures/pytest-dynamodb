@@ -37,7 +37,9 @@ jobs:
           - 8088:8000
 
     steps:
-    - uses: actions/checkout@v7
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
     - name: Install DynamoDB
       run: |
         mkdir /tmp/dynamodb
@@ -67,7 +69,7 @@ jobs:
         data-file: .coverage.docker
         output-file: coverage-docker.xml
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v6.0.0
+      uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
       with:
         files: coverage-serial.xml,coverage-xdist.xml,coverage-docker.xml
         flags: linux
