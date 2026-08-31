@@ -1,0 +1,1 @@
+Enable Ruff's flake8-pytest-style rules.

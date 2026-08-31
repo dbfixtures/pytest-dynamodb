@@ -21,7 +21,6 @@ import uuid
 import pytest
 from mirakuru import TCPExecutor
 from mypy_boto3_dynamodb import DynamoDBServiceResource
-from pytest import MonkeyPatch, Pytester
 
 pytest_plugins = ("pytester",)
 
@@ -29,8 +28,8 @@ pytest_plugins = ("pytester",)
 def test_teardown_preserves_preexisting_tables_in_child_pytest_run(
     dynamodb: DynamoDBServiceResource,
     dynamodb_proc: TCPExecutor,
-    pytester: Pytester,
-    monkeypatch: MonkeyPatch,
+    pytester: pytest.Pytester,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """Child pytest run should clean only its own tables."""
     suffix = uuid.uuid4().hex

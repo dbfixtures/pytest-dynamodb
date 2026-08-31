@@ -22,7 +22,6 @@ from typing import Callable, Generator, Iterable
 import pytest
 from mirakuru import ProcessExitedWithError, TCPExecutor
 from port_for import PortForException, PortType, get_port
-from pytest import FixtureRequest, TempPathFactory
 
 from pytest_dynamodb.config import DynamoDBConfig, get_config
 
@@ -76,7 +75,7 @@ def dynamodb_proc(
     host: str | None = None,
     port: PortType | None = None,
     delay: bool = False,
-) -> Callable[[FixtureRequest, TempPathFactory], Generator[TCPExecutor, None, None]]:
+) -> Callable[[pytest.FixtureRequest, pytest.TempPathFactory], Generator[TCPExecutor, None, None]]:
     """Process fixture factory for DynamoDB.
 
     :param str dynamodb_dir: a path to dynamodb dir (without spaces)
@@ -94,8 +93,8 @@ def dynamodb_proc(
 
     @pytest.fixture(scope="session")
     def dynamodb_proc_fixture(
-        request: FixtureRequest,
-        tmp_path_factory: TempPathFactory,
+        request: pytest.FixtureRequest,
+        tmp_path_factory: pytest.TempPathFactory,
     ) -> Generator[TCPExecutor, None, None]:
         """Process fixture for DynamoDB.
 
