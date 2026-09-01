@@ -17,7 +17,7 @@
 # along with pytest-dynamodb.  If not, see <http://www.gnu.org/licenses/>.
 """Plugin module of pytest-dynamodb."""
 
-from pytest import Parser
+import pytest
 
 import pytest_dynamodb.factories.process
 from pytest_dynamodb import factories
@@ -33,7 +33,7 @@ _help_aws_access_key = "AWS access key."
 _help_aws_region = "AWS region name."
 
 
-def pytest_addoption(parser: Parser) -> None:
+def pytest_addoption(parser: pytest.Parser) -> None:
     """Configure options for pytest-dynamodb."""
     parser.addini(name="dynamodb_dir", help=_help_dir, default="/tmp/dynamodb")
 

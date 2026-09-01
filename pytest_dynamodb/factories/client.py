@@ -22,7 +22,6 @@ import boto3
 import pytest
 from mirakuru import TCPExecutor
 from mypy_boto3_dynamodb import DynamoDBServiceResource
-from pytest import FixtureRequest
 
 from pytest_dynamodb.config import get_config
 from pytest_dynamodb.factories.noprocess import NoProcExecutor
@@ -41,7 +40,7 @@ def dynamodb(
     access_key: str | None = None,
     secret_key: str | None = None,
     region: str | None = None,
-) -> Callable[[FixtureRequest], Any]:
+) -> Callable[[pytest.FixtureRequest], Any]:
     """Fixture factory for DynamoDB resource.
 
     :param str process_fixture_name: name of the process fixture
@@ -54,7 +53,7 @@ def dynamodb(
 
     @pytest.fixture
     def dynamodb_factory(
-        request: FixtureRequest,
+        request: pytest.FixtureRequest,
     ) -> Generator[DynamoDBServiceResource, None, None]:
         """Fixture for DynamoDB resource.
 
