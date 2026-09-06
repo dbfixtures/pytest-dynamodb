@@ -3,6 +3,24 @@ CHANGELOG
 
 .. towncrier release notes start
 
+pytest-dynamodb 3.0.1 (2026-09-06)
+==================================
+
+Miscellaneus
+------------
+
+- Add zizmor to pre-commit and set explicit minimal ``permissions`` on all workflow jobs (`#1742 <https://github.com/dbfixtures/pytest-dynamodb/issues/1742>`_)
+- Add pyproject-fmt to pre-commit tools. (`#1743 <https://github.com/dbfixtures/pytest-dynamodb/issues/1743>`_)
+- Migrate dev env and build system to uv (`#1744 <https://github.com/dbfixtures/pytest-dynamodb/issues/1744>`_)
+- Add Python 3.15 to CI (`#1745 <https://github.com/dbfixtures/pytest-dynamodb/issues/1745>`_)
+- Enable Ruff's TRY (tryceratops) rules (`#1751 <https://github.com/dbfixtures/pytest-dynamodb/issues/1751>`_)
+- Add release-schedule workflow replacing manual release workflow. (`#1752 <https://github.com/dbfixtures/pytest-dynamodb/issues/1752>`_)
+- Enable Ruff's flake8-pytest-style rules. (`#1753 <https://github.com/dbfixtures/pytest-dynamodb/issues/1753>`_)
+- Migrated the Automerge workflow to `fizyk/actions-reuse` version 5.5.0. (`#1757 <https://github.com/dbfixtures/pytest-dynamodb/issues/1757>`_)
+- Add actionlint to pre-commit (`#1758 <https://github.com/dbfixtures/pytest-dynamodb/issues/1758>`_)
+- Configure Dependabot to update pre-commit dependencies. (`#1760 <https://github.com/dbfixtures/pytest-dynamodb/issues/1760>`_)
+
+
 pytest-dynamodb 3.0.0 (2026-03-13)
 ==================================
 

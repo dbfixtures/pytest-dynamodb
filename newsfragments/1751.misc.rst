@@ -1,1 +1,0 @@
-Enable Ruff's TRY (tryceratops) rules

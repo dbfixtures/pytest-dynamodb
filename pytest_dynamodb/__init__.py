@@ -18,4 +18,4 @@
 # along with pytest-dynamodb. If not, see <http://www.gnu.org/licenses/>.
 """Main module for pytest-dynamodb."""
 
-__version__ = "3.0.0"
+__version__ = "3.0.1"
