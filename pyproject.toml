@@ -51,8 +51,8 @@ pytest_dynamodb = "pytest_dynamodb.plugin"
 
 [dependency-groups]
 dev = [
-    "boto3==1.43.78",
-    "boto3-stubs[dynamodb]==1.43.79",
+    "boto3==1.43.83",
+    "boto3-stubs[dynamodb]==1.43.83",
     "coverage==7.15.4",
     "mirakuru==3.0.2",
     "mypy==2.3.1; implementation_name=='cpython'",
