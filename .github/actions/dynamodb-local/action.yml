@@ -1,0 +1,34 @@
+name: DynamoDB Local
+description: >-
+  Start the DynamoDB Local service defined in docker-compose.yml and install its
+  DynamoDBLocal.jar, extracted from the very same image, for the process fixtures.
+
+inputs:
+  service:
+    description: 'Compose service running DynamoDB Local'
+    default: 'dynamodb'
+    required: false
+  dir:
+    description: 'Directory to install DynamoDBLocal.jar into'
+    default: '/tmp/dynamodb'
+    required: false
+
+runs:
+  using: composite
+  steps:
+  - name: Start DynamoDB Local
+    shell: bash
+    env:
+      SERVICE: ${{ inputs.service }}
+    run: docker compose up --detach --wait "$SERVICE"
+  - name: Install DynamoDB Local
+    shell: bash
+    env:
+      SERVICE: ${{ inputs.service }}
+      DIR: ${{ inputs.dir }}
+    run: |
+      mkdir --parents "$DIR"
+      cid=$(docker create "$(docker compose config --images "$SERVICE")")
+      # ``|| true`` keeps a failed cleanup from masking the exit status of the copy.
+      trap 'docker rm --force "$cid" > /dev/null || true' EXIT
+      docker cp "$cid:/home/dynamodblocal/." "$DIR/"

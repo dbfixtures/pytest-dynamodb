@@ -28,21 +28,12 @@ jobs:
     env:
       OS: ${{ inputs.os }}
       PYTHON: ${{ matrix.python-version }}
-    # Service containers to run with `container-job`
-    services:
-      dynamodb:
-        image: amazon/dynamodb-local:3.3.0
-        ports:
-          - 8088:8000
-
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
-    - name: Install DynamoDB
-      run: |
-        mkdir /tmp/dynamodb
-        wget -O - https://d1ni2b6xgvw0s0.cloudfront.net/v3.x/dynamodb_local_latest.tar.gz | tar xz --directory /tmp/dynamodb
+    - name: Set up DynamoDB Local
+      uses: ./.github/actions/dynamodb-local
     - name: Set up uv with python ${{ matrix.python-version }}
       uses: fizyk/actions-reuse/.github/actions/uv-setup@7eefbd6ffc6c6787ad3be6ce93dcf475e3ae99b5 # v5.6.0
       with:
