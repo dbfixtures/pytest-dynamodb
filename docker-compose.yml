@@ -1,0 +1,16 @@
+# DynamoDB Local for the tests selected with ``-k docker``.
+#
+# CI extracts ``DynamoDBLocal.jar`` from this same image, so the version used by
+# the client-side and the process fixtures is pinned in one place, and Dependabot
+# keeps it up to date.
+services:
+  dynamodb:
+    image: amazon/dynamodb-local:3.3.1
+    ports:
+      - "8088:8000"
+    healthcheck:
+      # DynamoDB Local answers a bare GET with 400 - any reply means it is up.
+      test: ["CMD-SHELL", "curl -s -o /dev/null http://localhost:8000/"]
+      interval: 2s
+      timeout: 5s
+      retries: 15

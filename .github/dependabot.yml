@@ -20,7 +20,8 @@ updates:
     prefix: " "
 - package-ecosystem: github-actions
   directories:
-  - "/"
+    - "/"
+    - "/.github/actions/*"
   schedule:
     interval: daily
     time: "04:00"
@@ -34,6 +35,21 @@ updates:
     checkout:
       patterns:
       - "actions/checkout"
+    codecov:
+      patterns:
+      - "codecov/codecov-action"
+  commit-message:
+    prefix: " "
+- package-ecosystem: docker-compose
+  directories:
+  - "/"
+  schedule:
+    interval: weekly
+    day: monday
+    time: "04:20"
+  open-pull-requests-limit: 1
+  cooldown:
+    default-days: 7
   commit-message:
     prefix: " "
 - package-ecosystem: pre-commit
