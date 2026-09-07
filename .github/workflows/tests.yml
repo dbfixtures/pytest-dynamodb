@@ -10,13 +10,13 @@ permissions: {}
 
 jobs:
   tests:
-    uses: ./.github/workflows/single-tests.yml
+    uses: $/.github/workflows/single-tests.yml
     with:
       python-versions: '["3.10", "3.11", "3.12", "3.13", "3.14", "3.15", "pypy-3.11"]'
     secrets:
       codecov_token: ${{ secrets.CODECOV_TOKEN }}
   tests_oldest:
-    uses: ./.github/workflows/single-tests-oldest.yml
+    uses: $/.github/workflows/single-tests-oldest.yml
     with:
       python-versions: '["3.10", "3.11", "3.12", "3.13", "3.14", "3.15", "pypy-3.11"]'
     secrets:
