@@ -53,7 +53,7 @@ pytest_dynamodb = "pytest_dynamodb.plugin"
 dev = [
     "boto3==1.43.83",
     "boto3-stubs[dynamodb]==1.43.83",
-    "coverage==7.15.4",
+    "coverage==7.16.0",
     "mirakuru==3.0.2",
     "mypy==2.3.1; implementation_name=='cpython'",
     "port-for==1.0.0",
