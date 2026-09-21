@@ -36,25 +36,25 @@ jobs:
     - name: Set up DynamoDB Local
       uses: $/.github/actions/dynamodb-local
     - name: Set up uv with python ${{ matrix.python-version }}
-      uses: fizyk/actions-reuse/.github/actions/uv-setup@2ab3c94b032a11fca1238ef134690e589616739d # v5.7.0
+      uses: fizyk/actions-reuse/.github/actions/uv-setup@ef34949dba56816730c78752529724b4aa96e557 # v5.8.0
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install oldest supported versions
-      uses: fizyk/actions-reuse/.github/actions/uv-run@2ab3c94b032a11fca1238ef134690e589616739d # v5.7.0
+      uses: fizyk/actions-reuse/.github/actions/uv-run@ef34949dba56816730c78752529724b4aa96e557 # v5.8.0
       with:
         command: pip install -r oldest/requirements.txt
-    - uses: fizyk/actions-reuse/.github/actions/uv-pytest-coverage@2ab3c94b032a11fca1238ef134690e589616739d # v5.7.0
+    - uses: fizyk/actions-reuse/.github/actions/uv-pytest-coverage@ef34949dba56816730c78752529724b4aa96e557 # v5.8.0
       with:
         pytest-opts: -c pyproject.oldest.toml -p no:xdist -k "not docker"
         data-file: .coverage.serial
         output-file: coverage-serial.xml
-    - uses: fizyk/actions-reuse/.github/actions/uv-pytest-coverage@2ab3c94b032a11fca1238ef134690e589616739d # v5.7.0
+    - uses: fizyk/actions-reuse/.github/actions/uv-pytest-coverage@ef34949dba56816730c78752529724b4aa96e557 # v5.8.0
       with:
         pytest-opts: -c pyproject.oldest.toml -n auto --max-worker-restart=0 -k "not docker"
         coverage-config: .coveragerc
         data-file: .coverage.xdist
         output-file: coverage-xdist.xml
-    - uses: fizyk/actions-reuse/.github/actions/uv-pytest-coverage@2ab3c94b032a11fca1238ef134690e589616739d # v5.7.0
+    - uses: fizyk/actions-reuse/.github/actions/uv-pytest-coverage@ef34949dba56816730c78752529724b4aa96e557 # v5.8.0
       with:
         pytest-opts: -c pyproject.oldest.toml -p no:xdist -k docker --dynamodb-host=localhost --dynamodb-port=8088
         data-file: .coverage.docker
