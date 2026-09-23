@@ -43,7 +43,7 @@ jobs:
       uses: fizyk/actions-reuse/.github/actions/uv-pip@ef34949dba56816730c78752529724b4aa96e557 # v5.8.0
       with:
         requirements: oldest/requirements.txt
-    - uses: fizyk/actions-reuse/.github/actions/uv-pytest-coverage@7eefbd6ffc6c6787ad3be6ce93dcf475e3ae99b5 # v5.6.0
+    - uses: fizyk/actions-reuse/.github/actions/uv-pytest-coverage@ef34949dba56816730c78752529724b4aa96e557 # v5.8.0
       with:
         pytest-opts: -c pyproject.oldest.toml -p no:xdist -k "not docker"
         data-file: .coverage.serial
