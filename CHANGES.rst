@@ -3,6 +3,18 @@ CHANGELOG
 
 .. towncrier release notes start
 
+pytest-dynamodb 3.0.2 (2026-10-06)
+==================================
+
+Miscellaneus
+------------
+
+- Replace rhysd/actionlint with kjanat/actionlint (`#1784 <https://github.com/dbfixtures/pytest-dynamodb/issues/1784>`_)
+- Adjust shared-automerge permissions (`#1802 <https://github.com/dbfixtures/pytest-dynamodb/issues/1802>`_)
+- Pin DynamoDB Local to a single Docker image version in ``docker-compose.yml``,
+  used both for the service container and to install ``DynamoDBLocal.jar`` in CI.
+
+
 pytest-dynamodb 3.0.1 (2026-09-06)
 ==================================
 
