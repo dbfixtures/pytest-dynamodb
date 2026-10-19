@@ -56,7 +56,7 @@ dev = [
     "coverage==7.16.2",
     "mirakuru==3.0.3",
     "mypy==2.4.0; implementation_name=='cpython'",
-    "port-for==1.0.0",
+    "port-for==1.1.1",
     "pytest==9.1.1",
     "pytest-xdist==3.8.0",
     "towncrier==26.9.0",
