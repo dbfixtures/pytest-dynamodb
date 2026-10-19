@@ -54,7 +54,7 @@ dev = [
     "boto3==1.43.108",
     "boto3-stubs[dynamodb]==1.43.108",
     "coverage==7.16.2",
-    "mirakuru==3.0.3",
+    "mirakuru==3.0.4",
     "mypy==2.4.0; implementation_name=='cpython'",
     "port-for==1.0.0",
     "pytest==9.1.1",
