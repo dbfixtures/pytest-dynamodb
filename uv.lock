@@ -687,11 +687,11 @@ wheels = [
 
 [[package]]
 name = "port-for"
-version = "1.0.0"
+version = "1.1.1"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/88/a0/80a64e8cc096c7a9d0f546a28994af849b4775afc5e4ee44bf2739a55115/port_for-1.0.0.tar.gz", hash = "sha256:404d161b1b2c82e2f6b31d8646396b4847d02bf5ee10068c92b7263657a14582", size = 21681, upload-time = "2025-09-30T10:22:51.149Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/20/2e/f27375fad2df4e6ce1b921080d290cdae9bef5af37143de1cba23e1eb331/port_for-1.1.1.tar.gz", hash = "sha256:59fce22a7bf18b88744d034c6cb5ed11ef8a8c8ba003e03bece5f4a0e565abce", size = 17449, upload-time = "2026-10-05T16:31:41.92Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/70/2c/b1faca65b9728b4ac43f0bee4bb9e7294bd0a62cc2ee59fd59403bf575f6/port_for-1.0.0-py3-none-any.whl", hash = "sha256:35a848b98cf4cc075fe80dc49ae5c3a78e3ca345a23bd39bf5252277b4eef5c2", size = 17544, upload-time = "2025-09-30T10:22:49.878Z" },
+    { url = "https://files.pythonhosted.org/packages/51/12/00d6829609a0541ed708b6a0e15e246a3f0b8f74602f2467387aec27c05b/port_for-1.1.1-py3-none-any.whl", hash = "sha256:086524a0e374ec8283066c0d16fde93e09f2b4eccdb9a85f76bf0843317ad0b4", size = 17040, upload-time = "2026-10-05T16:31:40.569Z" },
 ]
 
 [[package]]
@@ -793,7 +793,7 @@ dev = [
     { name = "coverage", specifier = "==7.16.2" },
     { name = "mirakuru", specifier = "==3.0.4" },
     { name = "mypy", marker = "implementation_name == 'cpython'", specifier = "==2.4.0" },
-    { name = "port-for", specifier = "==1.0.0" },
+    { name = "port-for", specifier = "==1.1.1" },
     { name = "pytest", specifier = "==9.1.1" },
     { name = "pytest-xdist", specifier = "==3.8.0" },
     { name = "towncrier", specifier = "==26.9.0" },
